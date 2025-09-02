@@ -12,4 +12,4 @@ jobs:
       - name: Run tests
         run: pytest TP1/test.py
       - run: echo "Nom branche > ${{ github.ref }}"
-      - run: echo "Nom repo > ${{ vars.ref }}"
+      - run: echo "OS VM > ${{ runner.os }}"
