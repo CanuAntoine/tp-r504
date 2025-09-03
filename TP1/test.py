@@ -25,3 +25,6 @@ def test_3():
     assert f.puissance(0,-10)
     assert f.puissance(0,-100)
     assert f.puissance(0,-1000)
+
+  assert f.puissance(2, 1.2) == pytest.approx(2.29739671)
+  assert f.puissance(2,-1.2) == pytest.approx(0.435275282)

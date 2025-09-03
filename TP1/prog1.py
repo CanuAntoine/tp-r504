@@ -8,7 +8,7 @@ def carre():
     print(a**2)
 
 a = float(input("Nombre: "))
-b = int(input("Puissance: "))
+b = float(input("Puissance: "))
 
 res = f.puissance(a, b)
 print(f"Result: {res}")
