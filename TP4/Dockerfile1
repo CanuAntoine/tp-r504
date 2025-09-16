@@ -18,8 +18,8 @@ RUN /srv/venv/bin/pip install --upgrade pip && \
     
 RUN mkdir -p /srv/templates
 
-COPY index.html /srv/templates
-COPY app_1.py /srv
+COPY srv/templates/index.html /srv/templates
+COPY srv/app_1.py /srv
 
 ENV PATH="/srv/venv/bin:$PATH"
 

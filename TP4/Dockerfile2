@@ -1,27 +1,25 @@
-FROM python:3.9
-
-WORKDIR /srv
+FROM debian:12
 
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
     build-essential \
-    pkg-config \
-    python3-dev \
-    python3-pip \
-    python3-venv \
-    default-libmysqlclient-dev
+        pkg-config \
+        python3-dev \
+        python3-pip \
+        python3-setuptools \
+        python3-venv \
+        default-libmysqlclient-dev
 
 RUN python3 -m venv /srv/venv
-
 RUN /srv/venv/bin/pip install --upgrade pip && \
-    /srv/venv/bin/pip install \
-    flask-mysqldb \
-    mysql-connector-python
+    /srv/venv/bin/pip install --no-cache-dir flask flask-mysqldb mysql-connector-python
 
-RUN mkdir -p /srv/templates
+ENV PATH="/srv/venv/bin:${PATH}"
 
-COPY index.html /srv/templates
+EXPOSE 5000 
 
-ENV PATH="/srv/venv/bin:$PATH"
+ENV FLASK_ENV=development
+ENV FLASK_DEBUG=1
 
-CMD ["/srv/venv/bin/flask", "--app", "/srv/app_1", "run", "--host=0.0.0.0"]
+CMD ["flask", "--app", "/srv/app_1", "run", "--host=0.0.0.0", "--reload"]
+
