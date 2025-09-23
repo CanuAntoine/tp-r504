@@ -3,24 +3,39 @@ import java.io.*;
 
 public class Clienthttp {
     public static void main(String[] args) {
-        OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream());
-        InputStreamReader isw = new InputStreamReader(socket.getInputStream());
-
-        BufferedWriter bufOut = new BufferedWriter(osw);
-        BufferedReader bufIn = new BufferedReader(isw);
-
-        String request = "GET / HTTP/1.0\r\n\r\n"; // requete HTTP
-        bufOut.write(request, 0, request.length());
-        bufOut.flush();
-
-        String line = bufIn.readLine();
-        while (line != null ) {
-            rescues,
-            System.out.println( line );
-            line = bufIn.readLine();
+        if (args.length < 1) {
+            System.out.println("Usage: java Clienthttp <host> [port]");
+            return;
         }
-        bufIn.close();
-        bufOut.close();
-        socket.close();
+
+        String host = args[0];
+        int port = (args.length >= 2) ? Integer.parseInt(args[1]) : 80; // par défaut HTTP = 80
+
+        try {
+            Socket socket = new Socket(host, port);
+
+            OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream());
+            InputStreamReader isw = new InputStreamReader(socket.getInputStream());
+
+            BufferedWriter bufOut = new BufferedWriter(osw);
+            BufferedReader bufIn = new BufferedReader(isw);
+
+            String request = "GET / HTTP/1.0\r\nHost: " + host + "\r\n\r\n";
+            bufOut.write(request);
+            bufOut.flush();
+
+            String line = bufIn.readLine();
+            while (line != null) {
+                System.out.println(line);
+                line = bufIn.readLine();
+            }
+
+            bufIn.close();
+            bufOut.close();
+            socket.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
