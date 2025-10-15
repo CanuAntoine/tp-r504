@@ -9,7 +9,7 @@ public class Clienthttp {
         }
 
         String host = args[0];
-        int port = (args.length >= 2) ? Integer.parseInt(args[1]) : 80; // par défaut HTTP = 80
+        int port = (args.length >= 2) ? Integer.parseInt(args[1]) : 80;
 
         try {
             Socket socket = new Socket(host, port);
